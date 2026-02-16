@@ -1,0 +1,3 @@
+on_marriage = { events = { ld.2600 } }
+on_betrothal = { events = { ld.2601 } }
+on_betrothal_broken = { events = { ld.2602 } }

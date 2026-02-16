@@ -1,0 +1,6 @@
+ld_is_mp_safe_mode = {
+    has_game_rule = {
+        name = ld_desync_mode
+        value = ld_mp_safe
+    }
+}

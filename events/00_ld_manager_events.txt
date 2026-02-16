@@ -1,0 +1,33 @@
+namespace = ld
+
+character_event = {
+    id = ld.1000
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+
+        # === MP SAFE POLICY ===
+        # In mp_safe mode: only do cheap housekeeping + queued micro work.
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+
+            # Example: clear only cheap flags; NO big loops
+            if = {
+                limit = { has_character_flag = ld_queue_cleanup_needed }
+                clr_character_flag = ld_queue_cleanup_needed
+                # micro cleanup here (bounded to ROOT only)
+            }
+
+            return = yes
+        }
+
+        # === FULL MODE (SP) ===
+        # Put heavier monthly work here, but still avoid global scans.
+        if = {
+            limit = { has_character_flag = ld_queue_cleanup_needed }
+            clr_character_flag = ld_queue_cleanup_needed
+            # do the fuller cleanup here
+        }
+    }
+}

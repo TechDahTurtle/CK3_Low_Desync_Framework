@@ -1,0 +1,18 @@
+# MP Safe indicator (players only)
+if = {
+    limit = { ld_is_mp_safe_mode = yes }
+    every_player = {
+        if = {
+            limit = { NOT = { has_character_modifier = ld_mp_safe_active } }
+            add_character_modifier = { modifier = ld_mp_safe_active permanent = yes }
+        }
+    }
+}
+else = {
+    every_player = {
+        if = {
+            limit = { has_character_modifier = ld_mp_safe_active }
+            remove_character_modifier = ld_mp_safe_active
+        }
+    }
+}

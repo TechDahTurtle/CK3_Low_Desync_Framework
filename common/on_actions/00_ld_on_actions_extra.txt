@@ -1,0 +1,11 @@
+on_death = {
+    events = { ld.2000 }
+}
+
+on_game_start = {
+    events = { ld.1100 }
+}
+
+on_game_start_after_lobby = {
+    events = { ld.1100 }
+}

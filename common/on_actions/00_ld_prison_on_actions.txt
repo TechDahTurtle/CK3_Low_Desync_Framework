@@ -1,0 +1,8 @@
+on_imprison = {
+    events = { ld.2300 }
+}
+
+# Optional: clean up any queued flags when a character is released
+on_release_from_prison = {
+    events = { ld.2301 }
+}

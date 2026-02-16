@@ -1,0 +1,44 @@
+event = {
+    id = ld.4100
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        # Use YOUR actual rule from 00_ld_rule.txt
+        if = {
+            limit = {
+                game_rule = { key = ld_holy_war value = ld_holy_war_off }
+            }
+
+            # If GHW scope exists, invalidate it
+            if = {
+                limit = { exists = scope:great_holy_war }
+                scope:great_holy_war = { invalidate_great_holy_war = yes }
+            }
+
+            # If generic war scope exists, end it safely
+            if = {
+                limit = { exists = scope:war }
+                scope:war = { end_war = white_peace }
+            }
+        }
+    }
+}
+
+
+event = {
+    id = ld.4101
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {game_rule ld_crusades = ld_crusades_off value = ld_crusades_off } }
+
+            if = {
+                limit = { exists = scope:great_holy_war }
+                scope:great_holy_war = { invalidate_great_holy_war = yes }
+            }
+        }
+    }
+}

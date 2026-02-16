@@ -1,0 +1,9 @@
+if = {
+    limit = {
+        game_rule = {
+            key = ld_crusades
+            value = ld_crusades_off
+        }
+    }
+    return = yes
+}

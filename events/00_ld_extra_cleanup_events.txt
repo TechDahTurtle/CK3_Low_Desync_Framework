@@ -1,0 +1,42 @@
+event = {
+    id = ld.2601
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+            # Bounded cleanup marker
+            root = { set_character_flag = ld_queue_cleanup_needed }
+            if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+        }
+    }
+}
+
+event = {
+    id = ld.2602
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+            root = { set_character_flag = ld_queue_cleanup_needed }
+            if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+        }
+    }
+}
+
+event = {
+    id = ld.2701
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+            root = { set_character_flag = ld_queue_cleanup_needed }
+            if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+namespace = ld
+
+character_event = {
+    id = ld.3000
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+
+        # Only run in MP Safe mode
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+
+            # --- OPTIONAL DEBUG TOAST ---
+            # Uncomment this block while testing, then remove/comment again.
+            # send_interface_toast = {
+            #     type = event_toast_effect_neutral
+            #     title = "LD MP Safe"
+            #     text = "Monthly checkpoint ran"
+            # }
+
+            # --- SAFETY NET: end player-owned schemes that target dead characters ---
+            every_player = {
+                every_scheme = {
+                    limit = {
+                        is_active = yes
+                        scheme_target_character = { is_alive = no }
+                    }
+                    end_scheme = yes
+                }
+            }
+
+            # --- OPTIONAL: clear mod queue flags/cooldowns you use ---
+            # (Only include flags you actually set in your mod.)
+            # clr_character_flag = ld_queue_cleanup_needed
+            # remove_character_modifier = ld_rng_cooldown_30d
+        }
+    }
+}

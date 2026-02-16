@@ -1,0 +1,25 @@
+# Manager cadence (cheap, deterministic)
+on_monthly_pulse = {
+    events = { ld.1000 }
+}
+
+# Target invalidation: character dies
+on_death = {
+    events = { ld.2000 }
+}
+
+# War lifecycle cleanup (name varies by version/mod set)
+# In 1.18.x you will have a war-ended style hook in vanilla on_actions.
+# Keep ONE that matches your vanilla file name.
+# If your vanilla uses a different name, swap it here.
+on_war_ended = {            # <- if your vanilla file uses this
+    events = { ld.2100 }
+}
+
+# Title lifecycle cleanup (name varies; swap to match vanilla)
+on_title_destroyed = {      # <- if your vanilla file uses this
+    events = { ld.2200 }
+}
+on_title_gain = {
+    events = { ld.2201 }
+}

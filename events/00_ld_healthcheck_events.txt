@@ -1,32 +1,19 @@
-namespace = ld
+﻿namespace = ld
 
-# ===============================
-# LD Health Check
-# ----------------
-# Fires once per session and warns players if the playset is missing
-# key DB items (common cause of interaction spam).
-#
-# Fired from on_game_start + on_game_start_after_lobby.
-# Expected scope: none.
-# ===============================
-
-event = {
+game_event = {
     id = ld.1100
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
-        # Run once per session
         if = {
             limit = { has_global_flag = ld_healthcheck_done }
             return = yes
         }
         set_global_flag = ld_healthcheck_done
 
-        # Check each player (character scope is required for send_interface_toast)
         every_player = {
-
-            # --- Rule presence sanity ---
+            # Rule presence sanity
             if = {
                 limit = {
                     NOT = {
@@ -59,8 +46,7 @@ event = {
                 }
             }
 
-            # --- Missing interaction smoke test ---
-            # If this interaction is missing (or broken), people commonly get log spam about invalid interactions.
+            # Missing interaction smoke test
             if = {
                 limit = {
                     NOT = {
@@ -71,21 +57,9 @@ event = {
                     }
                 }
                 send_interface_toast = {
-                    type = event_toast_effect_neutral
-                    title = "LD Health Check"
-                    desc = "Interaction 'call_dynasty_member_to_war_interaction' is not valid (may be missing due to a mod override or version mismatch). If your logs spam interaction errors, check your playset/load order."
-                }
-            }
-
-            # Optional: quick indicator for testers
-            if = {
-                limit = { ld_is_mp_safe_mode = yes }
-                send_interface_toast = {
-				type = event_toast_effect_bad
-				title = "LD Health Check: Playset Issue"
-				desc = "Your playset appears broken (missing interaction: call_dynasty_member_to_war_interaction). If logs spam interaction errors, fix load order / CK3 version / mod overrides."
-				}
-
+                    type = event_toast_effect_bad
+                    title = "LD Health Check: Playset Issue"
+                    desc = "Missing/invalid interaction: call_dynasty_member_to_war_interaction. If logs spam interaction errors, check load order / version mismatch / overrides."
                 }
             }
         }

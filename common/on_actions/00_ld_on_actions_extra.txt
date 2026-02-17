@@ -1,4 +1,4 @@
-on_death = {
+﻿on_death = {
     events = { ld.2000 }
 }
 

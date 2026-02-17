@@ -1,4 +1,4 @@
-character_event = {
+﻿character_event = {
     id = ld.2000
     hide_window = yes
     is_triggered_only = yes
@@ -18,7 +18,7 @@ character_event = {
                 every_scheme = {
                     limit = {
                         is_active = yes
-                        scheme_target_character = { same_character = root }
+                        scheme_target_character = { same_character = ROOT }
                     }
                     end_scheme = yes
                 }
@@ -29,7 +29,7 @@ character_event = {
 # ===============================
 # War ended scheme cleanup
 # ===============================
-event = {
+game_event = {
     id = ld.2100
     hide_window = yes
     is_triggered_only = yes
@@ -77,7 +77,7 @@ event = {
 # ===============================
 # Title transfer cleanup (covers "title loss" via previous_holder)
 # ===============================
-event = {
+character_event = {
     id = ld.2201
     hide_window = yes
     is_triggered_only = yes
@@ -85,7 +85,7 @@ event = {
     immediate = {
 
         # Mark new holder (root) for bounded cleanup
-        if = { limit = { exists = root } root = { set_character_flag = ld_queue_cleanup_needed } }
+        if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
 
         # Mark previous holder too (they "lost" the title)
         if = { limit = { exists = scope:previous_holder } scope:previous_holder = { set_character_flag = ld_queue_cleanup_needed } }
@@ -115,7 +115,7 @@ event = {
 # Title destroyed cleanup
 # on_title_destroyed provides scope:landed_title
 # ===============================
-event = {
+character_event = {
     id = ld.2200
     hide_window = yes
     is_triggered_only = yes
@@ -140,7 +140,7 @@ event = {
 # ===============================
 # Prison cleanup (root = prisoner, scope:imprisoner = captor)
 # ===============================
-event = {
+character_event = {
     id = ld.2300
     hide_window = yes
     is_triggered_only = yes
@@ -150,19 +150,19 @@ event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # End player-owned schemes targeting the newly imprisoned character (root)
+            # End player-owned schemes targeting the newly imprisoned character (ROOT)
             every_player = {
                 every_scheme = {
                     limit = {
                         is_active = yes
-                        scheme_target_character = { same_character = root }
+                        scheme_target_character = { same_character = ROOT }
                     }
                     end_scheme = yes
                 }
             }
 
             # Optional: mark involved characters for bounded manager cleanup
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
             scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed }
         }
     }
@@ -171,7 +171,7 @@ event = {
 # ===============================
 # Prison release cleanup (root = released prisoner, scope:imprisoner = former imprisoner)
 # ===============================
-event = {
+character_event = {
     id = ld.2301
     hide_window = yes
     is_triggered_only = yes
@@ -181,7 +181,7 @@ event = {
             limit = { ld_is_mp_safe_mode = yes }
 
             # Optional: mark for bounded cleanup
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
             scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed }
         }
     }
@@ -189,7 +189,7 @@ event = {
 # ===============================
 # Travel cancelled cleanup
 # ===============================
-event = {
+character_event = {
     id = ld.2400
     hide_window = yes
     is_triggered_only = yes
@@ -200,7 +200,7 @@ event = {
 
             # Root is usually the traveller; if your on_action uses a different scope,
             # we’ll adjust once we confirm vanilla scopes.
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
 
             # Conservative: only end schemes if target is dead/missing
             every_player = {
@@ -208,7 +208,7 @@ event = {
                     limit = {
                         is_active = yes
                         scheme_target_character = {
-                            same_character = root
+                            same_character = ROOT
                             OR = { is_alive = no exists = no }
                         }
                     }
@@ -222,7 +222,7 @@ event = {
 # ===============================
 # Travel arrived cleanup
 # ===============================
-event = {
+character_event = {
     id = ld.2401
     hide_window = yes
     is_triggered_only = yes
@@ -231,7 +231,7 @@ event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
 
             # Conservative: only end schemes if target is dead/missing
             every_player = {
@@ -239,7 +239,7 @@ event = {
                     limit = {
                         is_active = yes
                         scheme_target_character = {
-                            same_character = root
+                            same_character = ROOT
                             OR = { is_alive = no exists = no }
                         }
                     }
@@ -250,7 +250,7 @@ event = {
     }
 }
 # Activity completed
-event = {
+character_event = {
     id = ld.2500
     hide_window = yes
     is_triggered_only = yes
@@ -260,7 +260,7 @@ event = {
             limit = { ld_is_mp_safe_mode = yes }
 
             # Root/scope depends on vanilla; once you paste the vanilla block, I’ll lock these scopes.
-            if = { limit = { exists = root } root = { set_character_flag = ld_queue_cleanup_needed } }
+            if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
 
             # Conservative scheme cleanup: only if target is objectively invalid
             every_player = {
@@ -277,7 +277,7 @@ event = {
 }
 
 # Activity cancelled
-event = {
+character_event = {
     id = ld.2501
     hide_window = yes
     is_triggered_only = yes
@@ -286,7 +286,7 @@ event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            if = { limit = { exists = root } root = { set_character_flag = ld_queue_cleanup_needed } }
+            if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
 
             every_player = {
                 every_scheme = {
@@ -301,7 +301,7 @@ event = {
     }
 }
 # Marriage created
-event = {
+character_event = {
     id = ld.2600
     hide_window = yes
     is_triggered_only = yes
@@ -311,7 +311,7 @@ event = {
             limit = { ld_is_mp_safe_mode = yes }
 
             # Root scope depends on vanilla: we’ll lock it once you paste the vanilla blocks
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
 
             if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
 
@@ -331,7 +331,7 @@ event = {
 # ===============================
 # Guardian assigned cleanup
 # ===============================
-event = {
+character_event = {
     id = ld.2700
     hide_window = yes
     is_triggered_only = yes
@@ -340,7 +340,7 @@ event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            root = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { set_character_flag = ld_queue_cleanup_needed }
             if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
 
             # Conservative scheme cleanup

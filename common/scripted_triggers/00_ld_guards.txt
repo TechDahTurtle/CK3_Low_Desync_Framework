@@ -1,4 +1,4 @@
-ld_mp_safe_guard_target = {
+﻿ld_mp_safe_guard_target = {
     if = {
         limit = { ld_is_mp_safe_mode = yes }
         if = {

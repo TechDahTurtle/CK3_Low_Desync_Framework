@@ -1,4 +1,4 @@
-suitable_theocrat_sponsor_trigger = {
+﻿suitable_theocrat_sponsor_trigger = {
 	faith = scope:the_faith
 	is_capable_adult_ai = yes
 	is_imprisoned = no
@@ -6,7 +6,8 @@ suitable_theocrat_sponsor_trigger = {
 
 suitable_faith_for_undirected_ghw_trigger = {
 
-	NOT = {game_rule = { key = ld_holy_war value = ld_holy_war_off }}
+	NOT = { has_game_rule = { name = ld_holy_war value = ld_holy_war_off } }
+
 	
 	OR = {
 		has_doctrine_parameter = great_holy_wars_active
@@ -37,7 +38,8 @@ suitable_faith_for_undirected_ghw_trigger = {
 }
 
 suitable_faith_for_directed_ghw_trigger = {
-	NOT = {game_rule = { key = ld_holy_war value = ld_holy_war_off }}
+	NOT = { has_game_rule = { name = ld_holy_war value = ld_holy_war_off } }
+
 	
 	OR = {
 		has_doctrine = tenet_armed_pilgrimages #Catholics
@@ -59,7 +61,8 @@ suitable_faith_for_directed_ghw_trigger = {
 
 suitable_faith_for_any_ghw_trigger = {
 
-	NOT = {game_rule = { key = ld_holy_war value = ld_holy_war_off }}
+	NOT = { has_game_rule = { name = ld_holy_war value = ld_holy_war_off } }
+
 
 	OR = {
 		has_doctrine = tenet_armed_pilgrimages #Catholics

@@ -1,4 +1,4 @@
-# Manager cadence (cheap, deterministic)
+﻿# Manager cadence (cheap, deterministic)
 on_monthly_pulse = {
     events = { ld.1000 }
 }

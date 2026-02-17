@@ -1,3 +1,3 @@
-on_monthly_pulse = {
+﻿on_monthly_pulse = {
     events = { ld.3000 }
 }

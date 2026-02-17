@@ -1,4 +1,4 @@
-ld_desync_mode = {
+﻿ld_desync_mode = {
     categories = { multiplayer }
     default = ld_mp_safe
 

@@ -1,4 +1,4 @@
-ld_desync_mp_safe = {
+﻿ld_desync_mp_safe = {
     has_game_rule = {
         name = ld_desync_mode
         value = ld_mp_safe

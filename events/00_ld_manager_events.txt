@@ -1,4 +1,4 @@
-namespace = ld
+﻿namespace = ld
 
 character_event = {
     id = ld.1000

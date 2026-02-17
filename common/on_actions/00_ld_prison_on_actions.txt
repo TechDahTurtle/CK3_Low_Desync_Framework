@@ -1,4 +1,4 @@
-on_imprison = {
+﻿on_imprison = {
     events = { ld.2300 }
 }
 

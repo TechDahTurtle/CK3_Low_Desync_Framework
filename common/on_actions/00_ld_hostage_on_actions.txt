@@ -1,2 +1,2 @@
-on_guardian_assigned = { events = { ld.2700 } }
+﻿on_guardian_assigned = { events = { ld.2700 } }
 on_guardian_removed  = { events = { ld.2701 } }

@@ -1,9 +1,7 @@
-if = {
-    limit = {
-        game_rule = {
-            key = ld_crusades
-            value = ld_crusades_off
-        }
-    }
-    return = yes
+﻿on_war_declared = {
+    events = { ld.4100 }
+}
+
+on_war_started = {
+    events = { ld.4101 }
 }

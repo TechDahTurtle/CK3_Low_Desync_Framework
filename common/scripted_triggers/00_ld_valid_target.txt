@@ -1,4 +1,4 @@
-ld_valid_target = {
+﻿ld_valid_target = {
     exists = scope:target
     scope:target = {
         is_alive = yes

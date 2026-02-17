@@ -1,2 +1,2 @@
-on_activity_completed = { events = { ld.2500 } }
+﻿on_activity_completed = { events = { ld.2500 } }
 on_activity_cancelled = { events = { ld.2501 } }

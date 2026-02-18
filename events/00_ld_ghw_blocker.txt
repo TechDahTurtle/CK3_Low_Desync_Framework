@@ -9,12 +9,18 @@ game_event = {
         if = {
             limit = { has_game_rule = { name = ld_holy_war value = ld_holy_war_off } }
 
+            # If a Great Holy War object is directly scoped, invalidate it.
             if = {
                 limit = { exists = scope:great_holy_war }
                 scope:great_holy_war = { invalidate_great_holy_war = yes }
             }
 
+            # End the war. Depending on the on_action, the war might be ROOT or saved as scope:war.
             if = {
+                limit = { is_war = yes }
+                end_war = white_peace
+            }
+            else_if = {
                 limit = { exists = scope:war }
                 scope:war = { end_war = white_peace }
             }
@@ -31,12 +37,18 @@ game_event = {
         if = {
             limit = { has_game_rule = { name = ld_holy_war value = ld_holy_war_off } }
 
+            # If a Great Holy War object is directly scoped, invalidate it.
             if = {
                 limit = { exists = scope:great_holy_war }
                 scope:great_holy_war = { invalidate_great_holy_war = yes }
             }
 
+            # End the war. Depending on the on_action, the war might be ROOT or saved as scope:war.
             if = {
+                limit = { is_war = yes }
+                end_war = white_peace
+            }
+            else_if = {
                 limit = { exists = scope:war }
                 scope:war = { end_war = white_peace }
             }

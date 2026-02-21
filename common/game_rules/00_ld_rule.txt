@@ -5,11 +5,3 @@
     ld_mp_safe = {}
     ld_full = {}
 }
-
-ld_holy_war = {
-    categories = { multiplayer }
-    default = ld_holy_war_on
-
-    ld_holy_war_on = {}
-    ld_holy_war_off = {}
-}

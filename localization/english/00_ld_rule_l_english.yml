@@ -8,11 +8,3 @@
   setting_ld_full:0 "Full"
   setting_ld_full_desc:0 "Less restrictive mode intended for singleplayer or testing."
 
-  rule_ld_holy_war:0 "Great Holy Wars"
-  rule_ld_holy_war_desc:0 "When disabled, Crusades/Jihads will be cancelled deterministically."
-
-  setting_ld_holy_war_on:0 "Enabled"
-  setting_ld_holy_war_on_desc:0 "Great Holy Wars are enabled."
-  setting_ld_holy_war_off:0 "Disabled"
-  setting_ld_holy_war_off_desc:0 "Great Holy Wars are cancelled deterministically."
-

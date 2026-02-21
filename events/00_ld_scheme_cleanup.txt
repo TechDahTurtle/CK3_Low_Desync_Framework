@@ -1,4 +1,6 @@
-﻿character_event = {
+﻿namespace = ld
+
+character_event = {
     id = ld.2000
     hide_window = yes
     is_triggered_only = yes

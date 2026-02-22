@@ -8,6 +8,8 @@ assignees: ''
 
 ---
 
+**If possible go to your documents folder and inside paradox interactive folder find logs and attach error.log and game.log**
+
 **Basic Info**
 
 Game Version: 1.18.3.1

@@ -7,27 +7,25 @@ character_event = {
 
     immediate = {
 
-        # === MP SAFE POLICY ===
-        # In mp_safe mode: only do cheap housekeeping + queued micro work.
-        if = {
-            limit = { ld_is_mp_safe_mode = yes }
+        # Do nothing unless queued
+        if = { limit = { NOT = { has_character_flag = ld_queue_cleanup_needed } } return = yes }
 
-            # Example: clear only cheap flags; NO big loops
-            if = {
-                limit = { has_character_flag = ld_queue_cleanup_needed }
-                clr_character_flag = ld_queue_cleanup_needed
-                # micro cleanup here (bounded to ROOT only)
+        clr_character_flag = ld_queue_cleanup_needed
+
+        # Ultra-safe: only touch ROOT
+        # End ROOT-owned schemes whose target is objectively invalid
+        every_scheme = {
+            limit = {
+                is_active = yes
+                scheme_target_character = {
+                    OR = { exists = no is_alive = no }
+                }
             }
-
-            return = yes
+            end_scheme = yes
         }
 
-        # === FULL MODE (SP) ===
-        # Put heavier monthly work here, but still avoid global scans.
-        if = {
-            limit = { has_character_flag = ld_queue_cleanup_needed }
-            clr_character_flag = ld_queue_cleanup_needed
-            # do the fuller cleanup here
-        }
+        # Optional: clear/remove ONLY your own mod’s flags/modifiers on ROOT
+        # remove_character_modifier = ld_mp_safe_active
+        # clr_character_flag = ld_some_flag
     }
 }

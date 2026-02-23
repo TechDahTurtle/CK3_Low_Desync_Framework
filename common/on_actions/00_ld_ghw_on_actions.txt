@@ -1,7 +1,0 @@
-﻿on_war_declared = {
-    events = { ld.4100 }
-}
-
-on_war_started = {
-    events = { ld.4101 }
-}

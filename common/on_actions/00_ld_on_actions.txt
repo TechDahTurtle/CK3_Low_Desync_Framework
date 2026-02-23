@@ -1,25 +1,24 @@
-﻿# Manager cadence (cheap, deterministic)
-on_monthly_pulse = {
-    events = { ld.1000 }
-}
+﻿on_game_start = { events = { ld.1100 } }
+on_game_start_after_lobby = { events = { ld.1100 } }
 
-# Target invalidation: character dies
-on_death = {
-    events = { ld.2000 }
-}
+# Root-only cadence: manager runs as a character_event on monthly pulse
+on_monthly_pulse = { events = { ld.1000 } }
 
-# War lifecycle cleanup (name varies by version/mod set)
-# In 1.18.x you will have a war-ended style hook in vanilla on_actions.
-# Keep ONE that matches your vanilla file name.
-# If your vanilla uses a different name, swap it here.
-on_war_ended = {            # <- if your vanilla file uses this
-    events = { ld.2100 }
-}
+# High-signal hooks that only FLAG characters (no scans)
+on_death = { events = { ld.2000 } }
+on_imprison = { events = { ld.2300 } }
+on_release_from_prison = { events = { ld.2301 } }
 
-# Title lifecycle cleanup (name varies; swap to match vanilla)
-on_title_destroyed = {      # <- if your vanilla file uses this
-    events = { ld.2200 }
-}
-on_title_gain = {
-    events = { ld.2201 }
-}
+# Optional hooks (safe: only flag)
+on_travel_cancelled = { events = { ld.2400 } }
+on_travel_arrived   = { events = { ld.2401 } }
+
+on_activity_completed = { events = { ld.2500 } }
+on_activity_cancelled = { events = { ld.2501 } }
+
+on_marriage = { events = { ld.2600 } }
+on_betrothal = { events = { ld.2601 } }
+on_betrothal_broken = { events = { ld.2602 } }
+
+on_guardian_assigned = { events = { ld.2700 } }
+on_guardian_removed  = { events = { ld.2701 } }

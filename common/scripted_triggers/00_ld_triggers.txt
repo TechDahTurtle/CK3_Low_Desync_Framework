@@ -1,5 +1,8 @@
-﻿ld_desync_mp_safe = {
-    # CK3 checks the selected *option* key directly
+﻿ld_is_mp_safe_mode = {
+    has_game_rule = ld_mp_safe
+}
+
+ld_desync_mp_safe = {
     has_game_rule = ld_mp_safe
 }
 

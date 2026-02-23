@@ -6,47 +6,23 @@ game_event = {
     is_triggered_only = yes
 
     immediate = {
-        # Run once per campaign
+        if = { limit = { exists = global_var:ld_healthcheck_done } return = yes }
+        set_global_variable = { name = ld_healthcheck_done value = 1 }
+
+        # Minimal: warn if rule missing (optional)
         if = {
-            limit = { exists = global_var:ld_healthcheck_done }
-        }
-        else = {
-            set_global_variable = { name = ld_healthcheck_done value = 1 }
-
-            every_player = {
-                # Rule presence sanity (MP Safe / Full)
-                if = {
-                    limit = {
-                        NOT = {
-                            OR = {
-                                has_game_rule = ld_mp_safe
-                                has_game_rule = ld_full
-                            }
-                        }
-                    }
-                    send_interface_toast = {
-                        type = event_toast_effect_bad
-                        title = "LD Health Check"
-                        desc = "Missing/invalid game rule: ld_desync_mode. Your save/modlist may not match."
+            limit = {
+                NOT = {
+                    OR = {
+                        has_game_rule = ld_mp_safe
+                        has_game_rule = ld_full
                     }
                 }
-
-                # Missing interaction smoke test
-                if = {
-                    limit = {
-                        NOT = {
-                            is_character_interaction_valid = {
-                                interaction = call_dynasty_member_to_war_interaction
-                                recipient = this
-                            }
-                        }
-                    }
-                    send_interface_toast = {
-                        type = event_toast_effect_bad
-                        title = "LD Health Check: Playset Issue"
-                        desc = "Missing/invalid interaction: call_dynasty_member_to_war_interaction. If logs spam interaction errors, check load order / version mismatch / overrides."
-                    }
-                }
+            }
+            send_interface_toast = {
+                type = event_toast_effect_bad
+                title = "LD Health Check"
+                desc = "Missing/invalid game rule: ld_desync_mode. Save/modlist may not match."
             }
         }
     }

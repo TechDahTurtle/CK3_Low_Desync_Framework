@@ -1,0 +1,114 @@
+﻿namespace = ld
+
+# Death: mark a small deterministic set
+character_event = {
+    id = ld.2000
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        every_close_family_member = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+        if = { limit = { exists = liege } liege = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+
+# Prison: root = prisoner, scope:imprisoner sometimes exists
+character_event = {
+    id = ld.2300
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:imprisoner } scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+
+character_event = {
+    id = ld.2301
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:imprisoner } scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+
+# Travel (optional)
+character_event = {
+    id = ld.2400
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+}
+character_event = {
+    id = ld.2401
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+}
+
+# Activity (optional)
+character_event = {
+    id = ld.2500
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+}
+character_event = {
+    id = ld.2501
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+}
+
+# Marriage / Betrothal (optional)
+character_event = {
+    id = ld.2600
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+character_event = {
+    id = ld.2601
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+character_event = {
+    id = ld.2602
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+
+# Guardian (optional)
+character_event = {
+    id = ld.2700
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}
+character_event = {
+    id = ld.2701
+    hide_window = yes
+    is_triggered_only = yes
+    immediate = {
+        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+    }
+}

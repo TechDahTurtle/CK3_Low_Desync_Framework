@@ -1,4 +1,4 @@
-﻿namespace = ld
+namespace = ld
 
 game_event = {
     id = ld.1100
@@ -6,23 +6,23 @@ game_event = {
     is_triggered_only = yes
 
     immediate = {
-        if = { limit = { exists = global_var:ld_healthcheck_done } return = yes }
+        if = { limit = { exists = global_var:ld_healthcheck_done }}
         set_global_variable = { name = ld_healthcheck_done value = 1 }
 
-        # Minimal: warn if rule missing (optional)
         if = {
             limit = {
                 NOT = {
                     OR = {
                         has_game_rule = ld_mp_safe
                         has_game_rule = ld_full
+                        # Add future game rule options here
                     }
                 }
             }
             send_interface_toast = {
                 type = event_toast_effect_bad
-                title = "LD Health Check"
-                desc = "Missing/invalid game rule: ld_desync_mode. Save/modlist may not match."
+                title = ld_healthcheck_title
+                desc = ld_healthcheck_desc
             }
         }
     }

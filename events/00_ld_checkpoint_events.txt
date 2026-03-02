@@ -1,4 +1,4 @@
-﻿namespace = ld
+namespace = ld
 
 character_event = {
     id = ld.3000
@@ -7,23 +7,12 @@ character_event = {
 
     immediate = {
 
-        # Only run in MP Safe mode
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # --- OPTIONAL DEBUG TOAST ---
-            # Uncomment this block while testing, then remove/comment again.
-            # send_interface_toast = {
-            #     type = event_toast_effect_neutral
-            #     title = "LD MP Safe"
-            #     text = "Monthly checkpoint ran"
-            # }
-
-            # --- SAFETY NET: end player-owned schemes that target dead characters ---
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { is_alive = no }
                     }
                     end_scheme = yes

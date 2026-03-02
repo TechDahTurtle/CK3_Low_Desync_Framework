@@ -1,14 +1,14 @@
-﻿character_event = {
+namespace = ld
+
+character_event = {
     id = ld.2000
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
-        # ROOT = dead character
 
-        # Mark related characters for bounded cleanup
         every_close_family_member = {
-            set_character_flag = ld_queue_cleanup_needed
+            add_character_flag = ld_queue_cleanup_needed
         }
 
         # MP Safe: end player schemes targeting ROOT
@@ -17,7 +17,6 @@
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { same_character = ROOT }
                     }
                     end_scheme = yes
@@ -43,15 +42,13 @@ game_event = {
                 limit = { exists = scope:war }
                 scope:war = {
                     every_war_participant = {
-                        set_character_flag = ld_recent_war_participant
+                        add_character_flag = ld_recent_war_participant
                     }
                 }
 
-                # End player schemes targeting invalid war participants
                 every_player = {
                     every_scheme = {
                         limit = {
-                            is_active = yes
                             scheme_target_character = {
                                 has_character_flag = ld_recent_war_participant
                                 OR = {
@@ -64,10 +61,9 @@ game_event = {
                     }
                 }
 
-                # Cleanup temp flags
                 scope:war = {
                     every_war_participant = {
-                        clr_character_flag = ld_recent_war_participant
+                        remove_character_flag = ld_recent_war_participant
                     }
                 }
             }
@@ -84,11 +80,10 @@ character_event = {
 
     immediate = {
 
-        # Mark new holder (root) for bounded cleanup
-        if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+        if = { limit = { exists = ROOT } ROOT = { add_character_flag = ld_queue_cleanup_needed } }
 
         # Mark previous holder too (they "lost" the title)
-        if = { limit = { exists = scope:previous_holder } scope:previous_holder = { set_character_flag = ld_queue_cleanup_needed } }
+        if = { limit = { exists = scope:previous_holder } scope:previous_holder = { add_character_flag = ld_queue_cleanup_needed } }
 
         # MP Safe: only end schemes that are *objectively invalid*
         if = {
@@ -97,7 +92,6 @@ character_event = {
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = {
                             OR = {
                                 is_alive = no
@@ -129,7 +123,7 @@ character_event = {
                 scope:landed_title = {
                     if = {
                         limit = { exists = holder }
-                        holder = { set_character_flag = ld_queue_cleanup_needed }
+                        holder = { add_character_flag = ld_queue_cleanup_needed }
                     }
                 }
             }
@@ -154,16 +148,14 @@ character_event = {
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { same_character = ROOT }
                     }
                     end_scheme = yes
                 }
             }
 
-            # Optional: mark involved characters for bounded manager cleanup
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
-            scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
+            scope:imprisoner = { add_character_flag = ld_queue_cleanup_needed }
         }
     }
 }
@@ -180,9 +172,8 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # Optional: mark for bounded cleanup
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
-            scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
+            scope:imprisoner = { add_character_flag = ld_queue_cleanup_needed }
         }
     }
 }
@@ -198,17 +189,13 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # Root is usually the traveller; if your on_action uses a different scope,
-            # we’ll adjust once we confirm vanilla scopes.
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
 
-            # Conservative: only end schemes if target is dead/missing
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = {
-                            same_character = ROOT
+                            scheme_target_character = { same_character = ROOT }
                             OR = { is_alive = no exists = no }
                         }
                     }
@@ -231,15 +218,13 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
 
-            # Conservative: only end schemes if target is dead/missing
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = {
-                            same_character = ROOT
+                            scheme_target_character = { same_character = ROOT }
                             OR = { is_alive = no exists = no }
                         }
                     }
@@ -259,14 +244,11 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # Root/scope depends on vanilla; once you paste the vanilla block, I’ll lock these scopes.
-            if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+            if = { limit = { exists = ROOT } ROOT = { add_character_flag = ld_queue_cleanup_needed } }
 
-            # Conservative scheme cleanup: only if target is objectively invalid
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { OR = { is_alive = no exists = no } }
                     }
                     end_scheme = yes
@@ -286,12 +268,11 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            if = { limit = { exists = ROOT } ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+            if = { limit = { exists = ROOT } ROOT = { add_character_flag = ld_queue_cleanup_needed } }
 
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { OR = { is_alive = no exists = no } }
                     }
                     end_scheme = yes
@@ -310,16 +291,14 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            # Root scope depends on vanilla: we’ll lock it once you paste the vanilla blocks
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
 
-            if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+            if = { limit = { exists = scope:spouse } scope:spouse = { add_character_flag = ld_queue_cleanup_needed } }
 
             # Conservative: end schemes only if target is dead/missing
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { OR = { is_alive = no exists = no } }
                     }
                     end_scheme = yes
@@ -340,14 +319,12 @@ character_event = {
         if = {
             limit = { ld_is_mp_safe_mode = yes }
 
-            ROOT = { set_character_flag = ld_queue_cleanup_needed }
-            if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+            ROOT = { add_character_flag = ld_queue_cleanup_needed }
+            if = { limit = { exists = scope:guardian } scope:guardian = { add_character_flag = ld_queue_cleanup_needed } }
 
-            # Conservative scheme cleanup
             every_player = {
                 every_scheme = {
                     limit = {
-                        is_active = yes
                         scheme_target_character = { OR = { is_alive = no exists = no } }
                     }
                     end_scheme = yes

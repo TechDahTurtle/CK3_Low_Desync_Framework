@@ -1,4 +1,4 @@
-﻿namespace = ld
+namespace = ld
 
 character_event = {
     id = ld.1000
@@ -6,26 +6,19 @@ character_event = {
     is_triggered_only = yes
 
     immediate = {
+        if = {
+            limit = { has_character_flag = ld_queue_cleanup_needed }
 
-        # Do nothing unless queued
-        if = { limit = { NOT = { has_character_flag = ld_queue_cleanup_needed } } return = yes }
+            remove_character_flag = ld_queue_cleanup_needed
 
-        clr_character_flag = ld_queue_cleanup_needed
-
-        # Ultra-safe: only touch ROOT
-        # End ROOT-owned schemes whose target is objectively invalid
-        every_scheme = {
-            limit = {
-                is_active = yes
-                scheme_target_character = {
-                    OR = { exists = no is_alive = no }
+            every_scheme = {
+                limit = {
+                    scheme_target_character = {
+                        OR = { exists = no is_alive = no }
+                    }
                 }
+                end_scheme = yes
             }
-            end_scheme = yes
         }
-
-        # Optional: clear/remove ONLY your own mod’s flags/modifiers on ROOT
-        # remove_character_modifier = ld_mp_safe_active
-        # clr_character_flag = ld_some_flag
     }
 }

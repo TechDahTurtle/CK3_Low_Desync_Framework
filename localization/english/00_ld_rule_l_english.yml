@@ -1,10 +1,12 @@
 ﻿l_english:
   rule_ld_desync_mode:0 "Low Desync Mode"
-  rule_ld_desync_mode_desc:0 "Reduces MP desync risk by using deterministic cleanup and guardrails."
+  rule_ld_desync_mode_desc:0 "Reduces multiplayer desync risk by using deterministic cleanup and guardrails. Choose a mode that fits your playstyle: MP Safe for stable multiplayer, Full for singleplayer or testing."
 
   setting_ld_mp_safe:0 "MP Safe"
-  setting_ld_mp_safe_desc:0 "Event-driven cleanup only. No RNG. No heavy scans."
+  setting_ld_mp_safe_desc:0 "Recommended for multiplayer. Uses only event-driven cleanup, disables random number generation, and avoids heavy scans for maximum stability."
 
   setting_ld_full:0 "Full"
-  setting_ld_full_desc:0 "Less restrictive mode intended for singleplayer or testing."
+  setting_ld_full_desc:0 "Less restrictive mode intended for singleplayer or testing. May use additional cleanup and random elements, which can increase desync risk in multiplayer."
 
+  ld_healthcheck_title:0 "LD Health Check"
+  ld_healthcheck_desc:0 "Missing or invalid game rule: ld_desync_mode. Your save or modlist may not match the expected configuration. Please check your game rules."

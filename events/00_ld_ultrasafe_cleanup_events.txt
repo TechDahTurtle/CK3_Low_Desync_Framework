@@ -13,14 +13,14 @@ character_event = {
     }
 }
 
-# Prison: root = prisoner, scope:imprisoner sometimes exists
+# Prison
 character_event = {
     id = ld.2300
     hide_window = yes
     is_triggered_only = yes
 
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        set_character_flag = ld_queue_cleanup_needed
         if = { limit = { exists = scope:imprisoner } scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed } }
     }
 }
@@ -31,46 +31,46 @@ character_event = {
     is_triggered_only = yes
 
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        set_character_flag = ld_queue_cleanup_needed
         if = { limit = { exists = scope:imprisoner } scope:imprisoner = { set_character_flag = ld_queue_cleanup_needed } }
     }
 }
 
-# Travel (optional)
+# Travel 
 character_event = {
     id = ld.2400
     hide_window = yes
     is_triggered_only = yes
-    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+    immediate = { set_character_flag = ld_queue_cleanup_needed }
 }
 character_event = {
     id = ld.2401
     hide_window = yes
     is_triggered_only = yes
-    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+    immediate = { set_character_flag = ld_queue_cleanup_needed }
 }
 
-# Activity (optional)
+# Activity 
 character_event = {
     id = ld.2500
     hide_window = yes
     is_triggered_only = yes
-    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+    immediate = { set_character_flag = ld_queue_cleanup_needed }
 }
 character_event = {
     id = ld.2501
     hide_window = yes
     is_triggered_only = yes
-    immediate = { ROOT = { set_character_flag = ld_queue_cleanup_needed } }
+    immediate = { set_character_flag = ld_queue_cleanup_needed }
 }
 
-# Marriage / Betrothal (optional)
+# Marriage / Betrothal 
 character_event = {
     id = ld.2600
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
+        set_character_flag = ld_queue_cleanup_needed
         if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
     }
 }
@@ -79,8 +79,8 @@ character_event = {
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
-        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+        add_character_flag = ld_queue_cleanup_needed
+        if = { limit = { exists = scope:spouse } scope:spouse = { add_character_flag = ld_queue_cleanup_needed } }
     }
 }
 character_event = {
@@ -88,19 +88,19 @@ character_event = {
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
-        if = { limit = { exists = scope:spouse } scope:spouse = { set_character_flag = ld_queue_cleanup_needed } }
+        add_character_flag = ld_queue_cleanup_needed
+        if = { limit = { exists = scope:spouse } scope:spouse = { add_character_flag = ld_queue_cleanup_needed } }
     }
 }
 
-# Guardian (optional)
+# Guardian 
 character_event = {
     id = ld.2700
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
-        if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+        add_character_flag = ld_queue_cleanup_needed
+        if = { limit = { exists = scope:guardian } scope:guardian = { add_character_flag = ld_queue_cleanup_needed } }
     }
 }
 character_event = {
@@ -108,7 +108,7 @@ character_event = {
     hide_window = yes
     is_triggered_only = yes
     immediate = {
-        ROOT = { set_character_flag = ld_queue_cleanup_needed }
-        if = { limit = { exists = scope:guardian } scope:guardian = { set_character_flag = ld_queue_cleanup_needed } }
+        add_character_flag = ld_queue_cleanup_needed
+        if = { limit = { exists = scope:guardian } scope:guardian = { add_character_flag = ld_queue_cleanup_needed } }
     }
 }

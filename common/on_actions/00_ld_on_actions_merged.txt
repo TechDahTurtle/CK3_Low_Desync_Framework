@@ -1,0 +1,32 @@
+# Merged LD on_actions file
+# Includes all hooks from separate LD on_actions files
+
+on_game_start = { events = { ld.1100 } }
+on_game_start_after_lobby = { events = { ld.1100 } }
+
+# Monthly pulse events
+on_monthly_pulse = { events = { ld.1000 ld.3000 } }
+
+# Death
+on_death = { events = { ld.2000 } }
+
+# Prison
+on_imprison = { events = { ld.2300 } }
+on_release_from_prison = { events = { ld.2301 } }
+
+# Travel
+on_travel_cancelled = { events = { ld.2400 } }
+on_travel_arrived   = { events = { ld.2401 } }
+
+# Activity
+on_activity_completed = { events = { ld.2500 } }
+on_activity_cancelled = { events = { ld.2501 } }
+
+# Marriage / Betrothal
+on_marriage = { events = { ld.2600 } }
+on_betrothal = { events = { ld.2601 } }
+on_betrothal_broken = { events = { ld.2602 } }
+
+# Guardian
+on_guardian_assigned = { events = { ld.2700 } }
+on_guardian_removed  = { events = { ld.2701 } }

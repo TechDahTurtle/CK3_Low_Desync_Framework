@@ -1,4 +1,0 @@
-﻿ld_is_mp_safe_mode = {
-    # CK3 checks the selected *option* key directly
-    has_game_rule = ld_mp_safe
-}

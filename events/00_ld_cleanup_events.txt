@@ -1,0 +1,289 @@
+﻿namespace = ld
+
+# Death cleanup - most critical for desyncs
+ld.100 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Death cleanup fired"
+		if = {
+			limit = {
+				is_betrothed = yes
+				betrothed = { is_alive = yes }
+			}
+			debug_log = "LD: Clearing betrothal from dead character"
+			break_betrothal = betrothed
+		}
+		save_scope_value_as = {
+			name = cleanup_death
+			value = yes
+		}
+	}
+}
+
+# AI state validation
+ld.101 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: AI state validation fired"
+		save_scope_value_as = { name = ai_check value = yes }
+	}
+}
+
+# War validation
+ld.102 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: War validation fired"
+		save_scope_value_as = { name = war_check value = yes }
+	}
+}
+
+# Prisoner check
+ld.103 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Prisoner check fired"
+		save_scope_value_as = { name = prisoner_check value = yes }
+	}
+}
+
+# Betrothal cleanup - critical desync cause
+ld.104 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Betrothal cleanup fired"
+		if = {
+			limit = {
+				is_betrothed = yes
+				betrothed = { is_alive = no }
+			}
+			debug_log = "LD: Breaking betrothal to dead character"
+			break_betrothal = betrothed
+		}
+	}
+}
+
+# Claim validation
+ld.105 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Claim validation fired"
+		save_scope_value_as = { name = claim_check value = yes }
+	}
+}
+
+# Vassal relationships
+ld.106 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Vassal relationships fired"
+		save_scope_value_as = { name = vassal_check value = yes }
+	}
+}
+
+# Council cleanup - dead councilors cause desyncs
+ld.107 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Council cleanup fired"
+		save_scope_value_as = { name = council_check value = yes }
+	}
+}
+
+# Succession validation
+ld.108 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Succession validation fired"
+		save_scope_value_as = { name = succession_check value = yes }
+	}
+}
+
+# Hook cleanup
+ld.109 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Hook cleanup fired"
+		save_scope_value_as = { name = hook_check value = yes }
+	}
+}
+
+# Artifact check
+ld.110 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Artifact check fired"
+		save_scope_value_as = { name = artifact_check value = yes }
+	}
+}
+
+# Opinion cleanup - dead character opinions
+ld.111 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Opinion cleanup fired"
+		save_scope_value_as = { name = opinion_check value = yes }
+	}
+}
+
+# Religious state
+ld.112 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Religious state fired"
+		save_scope_value_as = { name = religious_check value = yes }
+	}
+}
+
+# Mercenary validation
+ld.113 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Mercenary validation fired"
+		save_scope_value_as = { name = merc_check value = yes }
+	}
+}
+
+# Prisoner dungeon cleanup
+ld.114 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Prisoner dungeon cleanup fired"
+		save_scope_value_as = { name = prison_check value = yes }
+	}
+}
+
+# Interaction cleanup
+ld.115 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Interaction cleanup fired"
+		save_scope_value_as = { name = interaction_check value = yes }
+	}
+}
+
+# Character state validation
+ld.116 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Character state validation fired"
+		save_scope_value_as = { name = character_state_check value = yes }
+	}
+}
+
+# Marriage validation - dead spouses
+ld.117 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Marriage validation fired"
+		if = {
+			limit = {
+				is_married = yes
+				any_spouse = { is_alive = no }
+			}
+			debug_log = "LD: Divorcing dead spouse"
+			every_spouse = {
+				limit = { is_alive = no }
+				ROOT = { divorce = prev }
+			}
+		}
+	}
+}
+
+# Claim inheritance
+ld.118 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Claim inheritance fired"
+		save_scope_value_as = { name = claim_inheritance_check value = yes }
+	}
+}
+
+# Crusade validation
+ld.119 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Crusade validation fired"
+		save_scope_value_as = { name = crusade_check value = yes }
+	}
+}
+
+# Truce safety
+ld.120 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Truce safety fired"
+		save_scope_value_as = { name = truce_check value = yes }
+	}
+}
+
+# Realm drift
+ld.121 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Realm drift fired"
+		save_scope_value_as = { name = realm_drift_check value = yes }
+	}
+}
+
+# Court cleanup - dead courtiers
+ld.122 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Court cleanup fired"
+		save_scope_value_as = { name = court_check value = yes }
+	}
+}
+
+# Holy site validation
+ld.123 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Holy site validation fired"
+		save_scope_value_as = { name = holy_site_check value = yes }
+	}
+}
+
+# Modifier cleanup
+ld.124 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Modifier cleanup fired"
+		save_scope_value_as = { name = modifier_cleanup value = yes }
+	}
+}
+
+# Excommunication check
+ld.125 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		debug_log = "LD: Excommunication check fired"
+		save_scope_value_as = { name = excommunication_check value = yes }
+	}
+}

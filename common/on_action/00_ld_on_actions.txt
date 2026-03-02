@@ -1,0 +1,60 @@
+﻿on_death = {
+	events = {
+		ld.100
+		ld.108
+		ld.118
+		ld.124
+	}
+}
+
+on_daily_pulse = {
+	events = {
+		ld.101
+		ld.107
+		ld.114
+		ld.115
+	}
+}
+
+on_monthly_pulse = {
+	events = {
+		ld.104
+		ld.105
+		ld.109
+		ld.111
+		ld.112
+		ld.113
+		ld.116
+		ld.117
+		ld.119
+		ld.121
+		ld.122
+		ld.123
+		ld.125
+	}
+}
+
+on_quadrennial_pulse_1 = {
+	events = {
+		ld.110
+	}
+}
+
+on_war_start = {
+	events = {
+		ld.102
+		ld.120
+	}
+}
+
+on_character_imprisoned = {
+	events = {
+		ld.103
+	}
+}
+
+on_new_vassal_contract = {
+	events = {
+		ld.106
+	}
+}

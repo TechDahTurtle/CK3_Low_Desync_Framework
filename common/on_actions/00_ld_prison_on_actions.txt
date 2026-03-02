@@ -1,8 +1,0 @@
-﻿on_imprison = {
-    events = { ld.2300 }
-}
-
-
-on_release_from_prison = {
-    events = { ld.2301 }
-}

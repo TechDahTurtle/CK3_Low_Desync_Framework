@@ -10,4 +10,4 @@ This mod adds a multiplayer safe mode that prioritizes deterministic behavior by
 - **There are some desyncs that will appear due to engine level issues we cant resolve.**
 
 ## Issues
-If you encounter a desync, please report what was happening immediately before it occurred (event, interaction, war, scheme, etc.) so additional safeguards can be added.
+If you encounter a desync, please report what was happening immediately before it occurred (event, interaction, war, scheme, etc.) so additional safeguards can be added. 

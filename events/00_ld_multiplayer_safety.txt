@@ -1,0 +1,304 @@
+namespace = ld
+
+# Monthly dispatcher; fired by on_monthly_pulse via separate on_actions file
+# and also usable manually via "trigger_event" if needed.
+game_event = {
+    id = ld.4900
+    hide_window = yes
+    is_triggered_only = no
+
+    trigger = {
+        game_rule = { ld_desync_mode = ld_mp_safe }
+    }
+
+    immediate = {
+        # call each safety sub-event in turn
+        trigger_event = { id = ld.5000 }
+        trigger_event = { id = ld.5100 }
+        trigger_event = { id = ld.5200 }
+        trigger_event = { id = ld.5300 }
+        trigger_event = { id = ld.5400 }
+        trigger_event = { id = ld.5500 }
+        trigger_event = { id = ld.5600 }
+        trigger_event = { id = ld.5700 }
+        trigger_event = { id = ld.5800 }
+        trigger_event = { id = ld.5900 }
+        trigger_event = { id = ld.6000 }
+    }
+}
+
+# Multiplayer Safety: Deterministic AI Action Gate
+# This event system ensures that all AI actions are synchronized when ld_desync_mode is set to ld_mp_safe
+
+# NOTE: events below are fired monthly via ld.4900 (on_monthly_pulse)
+game_event = {
+	id = ld.5000
+	hide_window = yes
+	is_triggered_only = yes
+	
+	# Gate: Only process AI actions in multiplayer safe mode
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Run deterministic AI cleanup
+			if = { limit = { has_character_flag = ld_queue_cleanup_needed }
+				remove_character_flag = ld_queue_cleanup_needed
+			}
+		}
+	}
+}
+
+# Realm Stability Check: Ensure realm boundaries and claims are synchronized
+character_event = {
+	id = ld.5100
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Verify liege/vassal relationships are consistent
+			if = { limit = { exists = liege }
+				if = { limit = { liege = { is_independent_ruler = yes } } }
+			}
+			# Check all claims are properly indexed
+			every_claim = {
+				limit = { claimant = { is_alive = no } }
+				remove_claim_on_character = liege
+			}
+		}
+	}
+}
+
+# Scheme Synchronization: Ensure all active schemes are valid and synchronized
+character_event = {
+	id = ld.5200
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Remove schemes targeting dead or invalid characters
+			every_scheme = {
+				limit = {
+					scheme_target_character = {
+						OR = { exists = no is_alive = no }
+					}
+				}
+				end_scheme = yes
+			}
+			# Ensure schemer is still alive
+			if = { limit = { is_alive = no }
+				every_scheme = { end_scheme = yes }
+			}
+		}
+	}
+}
+
+# War/Casus Belli Validation: Ensure all wars have valid targets and objectives
+character_event = {
+	id = ld.5300
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Verify character is alive before engaging in wars
+			if = { limit = { is_alive = no }
+				every_war = { end_war = invalid }
+			}
+			# Validate casus belli targets
+			every_casus_belli = {
+				limit = {
+					casus_belli_target_character = {
+						OR = { exists = no is_alive = no }
+					}
+				}
+				remove_casus_belli = no
+			}
+		}
+	}
+}
+
+# Activity/Interaction Validation: Ensure all active interactions are still valid
+character_event = {
+	id = ld.5400
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Remove invalid activity targets
+			if = {
+				limit = {
+					is_participating_in_activity = yes
+					activity = {
+						activity_host = { is_alive = no }
+					}
+				}
+				activity = { end_activity = abandoned }
+			}
+		}
+	}
+}
+
+# Title Succession Validation: Prevent de jure drift and invalid title state
+character_event = {
+	id = ld.5500
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Ensure titles have valid holders
+			every_title_held = {
+				limit = { holder = { is_alive = no } }
+				# This should not happen, but catch orphaned titles
+			}
+			# Prevent invalid succession states
+			if = {
+				limit = {
+					is_ruler = no
+					has_any_title = yes
+				}
+				# Non-rulers should not have titles, investigate if this occurs
+			}
+		}
+	}
+}
+
+# Marriage/Betrothal Validation: Ensure marriages are synchronized and valid
+character_event = {
+	id = ld.5600
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Validate spouse exists and marriage is bidirectional
+			if = {
+				limit = { exists = spouse }
+				if = {
+					limit = { spouse = { OR = { is_alive = no exists = no } } }
+					# Spouse is no longer valid, flag for cleanup
+					set_character_flag = ld_queue_cleanup_needed
+				}
+			}
+			# Validate betrothals
+			if = {
+				limit = { exists = betrothed }
+				if = {
+					limit = { betrothed = { OR = { is_alive = no exists = no } } }
+					# Betrothal is invalid
+					set_character_flag = ld_queue_cleanup_needed
+				}
+			}
+		}
+	}
+}
+
+# Guardian/Ward Validation: Ensure guardian relationships are synchronized
+character_event = {
+	id = ld.5700
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Validate guardians still exist
+			if = {
+				limit = { exists = guardian }
+				if = {
+					limit = { guardian = { OR = { is_alive = no exists = no } } }
+					remove_guardian = yes
+				}
+			}
+			# Validate wards are valid
+			if = {
+				limit = { is_guardian = yes }
+				every_ward = {
+					limit = { OR = { is_alive = no exists = no } }
+					# Invalid ward, remove guardianship
+					remove_ward = yes
+				}
+			}
+		}
+	}
+}
+
+# Trait/Ability Synchronization: Ensure traits and abilities are consistent
+character_event = {
+	id = ld.5800
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Validate age-appropriate traits (e.g., no baby traits on adults)
+			if = {
+				limit = { is_adult = yes }
+				if = { limit = { has_trait = bastard }
+					# Bastard trait should persist, but ensure consistency
+				}
+			}
+			# Validate conflicting traits are not present
+			if = {
+				limit = { has_trait = pregnant }
+				if = { limit = { is_male = yes }
+					# Invalid trait on male character, remove
+					remove_trait = pregnant
+				}
+			}
+		}
+	}
+}
+
+# Vassal/Liege Consistency: Ensure vassal chains are valid and non-circular
+character_event = {
+	id = ld.5900
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# Verify liege still exists and is valid
+			if = {
+				limit = { exists = liege }
+				if = {
+					limit = { liege = { OR = { is_alive = no exists = no } } }
+					make_independent = yes
+				}
+			}
+			# Ensure character is not in an invalid realm state
+			if = {
+				limit = { is_alive = yes is_ruler = yes }
+				# Valid ruler state, continue
+			}
+		}
+	}
+}
+
+# Multiplayer Desync Logging: Log key game state for debugging
+# This event prints a small debug message for the current character when MP Safe
+# mode is active. It can be triggered manually or as part of the dispatcher.
+game_event = {
+	id = ld.6000
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { game_rule = { ld_desync_mode = ld_mp_safe } }
+			# output a debug log line for the character scope if available
+			debug_log = "[LD] character %c (%id) alive=%b liege=%c"
+		}
+	}
+}

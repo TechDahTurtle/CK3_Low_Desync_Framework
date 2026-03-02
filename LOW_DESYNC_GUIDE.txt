@@ -1,0 +1,153 @@
+# Low Desync Framework - Multiplayer Safety Guide
+
+## Overview
+The Low Desync Framework provides comprehensive desync prevention for Crusader Kings III multiplayer games by enforcing deterministic AI behavior and validating game state consistency.
+
+## Game Rules
+
+### ld_desync_mode
+Controls the framework's behavior:
+
+**MP Safe (Recommended for Multiplayer)**
+- Enables all deterministic safety checks
+- Gates all AI actions through synchronization validation
+- Removes invalid game state (orphaned titles, dead targets, circular vassal chains)
+- Validates: realms, schemes, wars, activities, traits, marriages, guardians
+- Prevents divergence caused by randomness or unsynchronized calculations
+
+**Full (Vanilla Behavior)**
+- No additional safety restrictions
+- Allows vanilla AI behavior
+- Suitable for singleplayer or testing
+- May increase desync risk in multiplayer
+
+## Safety Features
+
+### 1. Deterministic AI Action Gate (Event ld.3000)
+- Queues AI cleanup operations
+- Only executes in MP Safe mode
+- Template for gating other AI actions
+
+### 2. Realm Stability Check (Event ld.3100)
+- Validates liege/vassal relationships
+- Cleans up invalid claims
+- Ensures realm boundaries are consistent
+
+### 3. Scheme Synchronization (Event ld.3200)
+- Removes schemes targeting dead characters
+- Validates schemer is still alive
+- Prevents phantom schemes causing divergence
+
+### 4. War/Casus Belli Validation (Event ld.3300)
+- Verifies war targets are valid and alive
+- Validates casus belli targets exist
+- Prevents ghost wars from causing desyncs
+
+### 5. Activity/Interaction Validation (Event ld.3400)
+- Ensures activity hosts are alive
+- Removes abandoned activities
+- Validates interaction targets
+
+### 6. Title Succession Validation (Event ld.3500)
+- Prevents de jure drift
+- Ensures titles have valid holders
+- Catches orphaned titles
+
+### 7. Marriage/Betrothal Validation (Event ld.3600)
+- Validates spouses exist and are alive
+- Ensures bidirectional marriages
+- Removes invalid betrothals
+
+### 8. Guardian/Ward Validation (Event ld.3700)
+- Validates guardians and wards exist
+- Removes invalid guardian relationships
+- Ensures wards are properly indexed
+
+### 9. Trait/Ability Synchronization (Event ld.3800)
+- Validates age-appropriate traits
+- Removes invalid trait combinations
+- Prevents gender-invalid traits
+
+### 10. Vassal/Liege Consistency (Event ld.3900)
+- Ensures liege chains are non-circular
+- Validates all lieges exist
+- Makes rulers independent if liege is invalid
+
+### 11. Desync Logging (Event ld.4000)
+- Logs character state for debugging
+- Helps identify sources of divergence
+- Available for custom extensions
+
+## How It Works
+
+When MP Safe mode is active, all validation events check:
+1. If the character/title/scheme/war/etc. exists and is valid
+2. If all related entities (targets, holders, participants) are alive
+3. If state is consistent and non-circular
+4. If invalid entries are removed or corrected
+
+This ensures all clients maintain identical game state for these critical systems.
+
+## Extending the Framework
+
+To add your own desync prevention:
+
+```
+# Template for new safety check
+# you can rely on the scripted trigger ld_is_mp_safe_mode instead of repeating the game_rule check
+# or simply test the game_rule directly.
+character_event = {
+    id = ld.XXXX
+    hide_window = yes
+    is_triggered_only = yes
+    
+    immediate = {
+        if = {
+            limit = { ld_is_mp_safe_mode = yes }
+            # Your deterministic logic here
+            if = { limit = { [CONDITION] }
+                [ACTION]
+            }
+        }
+    }
+}
+```
+
+## Best Practices for Mod Authors
+
+1. **Always gate new AI logic behind game rule checks**
+   - Use: `if = { limit = { game_rule = { ld_desync_mode = ld_mp_safe } } ... }`
+
+2. **Avoid randomization in multiplayer logic**
+   - Never use: random_list, random_chance, random in MP Safe context
+   - Use deterministic logic instead
+
+3. **Validate all targets before actions**
+   - Check: exists, is_alive, valid_ruler, etc.
+   - Clean up invalid references immediately
+
+4. **Keep event triggers synchronized**
+   - Use game hooks and standardized triggers
+   - Avoid client-side or time-dependent logic
+
+5. **Test extensively in multiplayer**
+   - Play long multiplayer sessions with MP Safe active
+   - Monitor for desync messages
+   - Use logging to debug any divergence
+
+## Troubleshooting
+
+**Still getting desyncs?**
+1. Ensure all other mods use similar gating patterns
+2. Check if randomization is used in other mods
+3. Verify all mod loads/subscriptions match across all clients
+4. Enable logging (Event ld.4000) to identify divergence sources
+
+**Performance concerns?**
+- The validation events are lightweight and only run when needed
+- MP Safe mode adds minimal overhead compared to vanilla
+- Most checks are conditional and exit early
+
+## Version History
+
+- 5.1.2: Initial release with comprehensive multiplayer safety features

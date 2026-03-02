@@ -2,6 +2,12 @@
     categories = { multiplayer }
     default = ld_mp_safe
 
-    ld_mp_safe = {}
-    ld_full = {}
+    ld_mp_safe = {
+        desc = "Reduces desyncs in multiplayer by enforcing deterministic AI behavior."
+        tooltip = "Recommended for multiplayer games to minimize desyncs."
+    }
+    ld_full = {
+        desc = "No changes from vanilla AI behavior."
+        tooltip = "Vanilla AI logic. Use for singleplayer or if desyncs are not a concern."
+    }
 }

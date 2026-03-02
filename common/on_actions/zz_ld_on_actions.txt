@@ -1,0 +1,12 @@
+on_monthly_pulse = {
+    # dispatch safety checks every month when MP safe mode active
+    events = { ld.4900 }
+
+    # manager event (cleanup queue) should run regularly as well
+    events = { ld.1000 }
+}
+
+on_game_start = {
+    # run healthcheck once to warn if game rules are wrong
+    events = { ld.1100 }
+}

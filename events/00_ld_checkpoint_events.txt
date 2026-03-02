@@ -18,11 +18,6 @@ character_event = {
                     end_scheme = yes
                 }
             }
-
-            # --- OPTIONAL: clear mod queue flags/cooldowns you use ---
-            # (Only include flags you actually set in your mod.)
-            # clr_character_flag = ld_queue_cleanup_needed
-            # remove_character_modifier = ld_rng_cooldown_30d
         }
     }
 }

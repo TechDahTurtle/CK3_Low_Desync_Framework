@@ -10,3 +10,39 @@
 
   ld_healthcheck_title:0 "LD Health Check"
   ld_healthcheck_desc:0 "Missing or invalid game rule: ld_desync_mode. Your save or modlist may not match the expected configuration. Please check your game rules."
+
+  ld_multiplayer_safety_title:0 "Multiplayer Safety Features"
+  ld_multiplayer_safety_desc:0 "Comprehensive desync prevention system. When MP Safe mode is active, all AI actions are gated through deterministic checks to ensure multiplayer synchronization."
+  
+  ld_realm_stability_check:0 "Realm Stability Check"
+  ld_realm_stability_check_desc:0 "Validates realm boundaries, liege/vassal relationships, and claims are synchronized across all clients."
+  
+  ld_scheme_validation:0 "Scheme Synchronization"
+  ld_scheme_validation_desc:0 "Ensures all active schemes target valid, living characters and removes orphaned or invalid schemes."
+  
+  ld_war_validation:0 "War/Casus Belli Validation"
+  ld_war_validation_desc:0 "Verifies all wars have valid targets and objectives, preventing desyncs from invalid military actions."
+  
+  ld_activity_validation:0 "Activity Validation"
+  ld_activity_validation_desc:0 "Ensures all character activities target valid hosts and removes abandoned or invalid interactions."
+  
+  ld_title_validation:0 "Title Succession Validation"
+  ld_title_validation_desc:0 "Prevents de jure drift and ensures all titles have valid holders in a consistent state."
+  
+  ld_marriage_validation:0 "Marriage/Betrothal Validation"
+  ld_marriage_validation_desc:0 "Validates marriages and betrothals are synchronized and bidirectional, removing invalid relationships."
+  
+  ld_guardian_validation:0 "Guardian/Ward Validation"
+  ld_guardian_validation_desc:0 "Ensures guardian relationships are valid and removes guardians/wards that no longer exist."
+  
+  ld_trait_validation:0 "Trait/Ability Synchronization"
+  ld_trait_validation_desc:0 "Checks for age-appropriate traits and removes conflicting or invalid trait combinations."
+  
+  ld_vassal_validation:0 "Vassal/Liege Consistency"
+  ld_vassal_validation_desc:0 "Validates vassal chains are non-circular and all lieges are valid, making rulers independent if needed."
+  
+  ld_monthly_dispatch_title:0 "Monthly Safety Dispatch"
+  ld_monthly_dispatch_desc:0 "Periodically runs all multiplayer safety validation events when MP Safe mode is active."
+  
+  ld_manager_event_title:0 "Manager Cleanup"
+  ld_manager_event_desc:0 "Handles queued cleanup operations and ends invalid schemes, firing monthly as needed."

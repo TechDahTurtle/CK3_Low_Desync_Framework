@@ -5,12 +5,14 @@ character_event = {
     hide_window = yes
     is_triggered_only = yes
 
+    # Desync prevention: Only run deterministic cleanup if ld_desync_mode is set to ld_mp_safe
     immediate = {
         if = {
-            limit = { has_character_flag = ld_queue_cleanup_needed }
-
+            limit = {
+                has_character_flag = ld_queue_cleanup_needed
+                game_rule = { ld_desync_mode = ld_mp_safe }
+            }
             remove_character_flag = ld_queue_cleanup_needed
-
             every_scheme = {
                 limit = {
                     scheme_target_character = {
@@ -20,5 +22,6 @@ character_event = {
                 end_scheme = yes
             }
         }
+        # If ld_desync_mode is ld_full, vanilla logic applies (add any non-deterministic actions here if needed)
     }
 }

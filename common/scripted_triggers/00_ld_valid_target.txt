@@ -2,6 +2,6 @@
     exists = scope:target
     scope:target = {
         is_alive = yes
-        NOT = { is_imprisoned = yes } # optional: remove if you want imprisoned targets to remain valid
+        NOT = { is_imprisoned = yes }
     }
 }

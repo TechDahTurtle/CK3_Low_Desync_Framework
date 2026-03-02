@@ -1,3 +1,6 @@
+﻿# NOTE: These on_action names MUST match your vanilla.
+# If yours use different names, replace them accordingly.
+
 on_travel_cancelled = {
     events = { ld.2400 }
 }

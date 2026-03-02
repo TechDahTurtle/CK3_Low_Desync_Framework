@@ -1,0 +1,11 @@
+# Low Desync Framework scripted triggers
+
+# Returns yes when multiplayer-safe mode is active (game rule)
+ld_is_mp_safe_mode = {
+    game_rule = { ld_desync_mode = ld_mp_safe }
+}
+
+# Convenience trigger for full (no restrictions)
+ld_is_ld_full_mode = {
+    game_rule = { ld_desync_mode = ld_full }
+}
